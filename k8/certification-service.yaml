@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certificacion-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: certificacion-service
+  template:
+    metadata:
+      labels:
+        app: certificacion-service
+    spec:
+      containers:
+        - name: certificacion-service
+          image: certificacion-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: certificacion-service
+spec:
+  selector:
+    app: certificacion-service
+  ports:
+    - port: 80
+      targetPort: 5002

@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: solicitud-gateway
+spec:
+  selector:
+    istio: ingressgateway # Selecciona el ingress gateway de Istio
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: solicitud-service
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - solicitud-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /solicitudes
+      route:
+        - destination:
+            host: solicitud-service
+            port:
+              number: 80
