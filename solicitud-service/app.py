@@ -3,8 +3,8 @@ import requests
 import jwt
 
 app = Flask(__name__)
-AUTH_URL = 'http://loclahost:5001/verify'
-SOAP_URL = 'http://localhost:5002/registrar'
+AUTH_URL = 'http://auth-service:5001/verify'
+SOAP_URL = 'http://certificacion-service:5002/registrar'
 
 @app.route('/solicitudes', methods=['POST'])
 def crear_solicitud():
